@@ -19,6 +19,7 @@ yapf = "^0.43.0"
 django-environ = "^0.12.0"
 environ = "^1.0"
 django = "^5.2"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "^8.0.0"}
 
 [tool.flake8]
 max-line-length = 88
@@ -72,7 +73,7 @@ multi_line_output = 3
 line_length = 88
 default_section = "THIRDPARTY"
 known_first_party = []
-known_third_party = ["django", "environ"]
+known_third_party = ["django", "environ", "phonenumber_field"]
 
 [tool.bandit]
 exclude_dirs = ["tests"]
