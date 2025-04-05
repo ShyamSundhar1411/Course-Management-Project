@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow rounded">
+                <div class="card-body">
+
+
+                    <div class="d-flex justify-content-center align-items-center mb-4">
+                        <i class="fas fa-chalkboard-teacher me-2 text-primary fa-lg"></i>
+                        <h3 class="card-title m-0">Faculty Login</h3>
+                    </div>
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+
+
+                        <p class="text-center mt-3 mb-0">
+                            Not having a faculty account?
+                            <a href="{% url 'faculty_registration' %}" class="text-decoration-none">
+                                Register here
+                            </a>
+                        </p>
+                    </form>
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger mt-3">
+                            Please correct the error{{ form.errors }} below.
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
