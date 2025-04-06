@@ -1,15 +1,15 @@
 <div class="container mt-4">
     <h2 class="mb-4">Enrolled Courses</h2>
     <div class="row">
-        {% for course in enrolled_courses %}
+        {% for enrollment in enrolled_courses %}
         <div class="col-md-4 mb-3">
             <div class="card border-success mb-3" style="max-width: 20rem;">
-                <div class="card-header">{{ course.course_code }}</div>
+                <div class="card-header">{{ enrollment.course.course_code }}</div>
                 <div class="card-body">
-                    <h4 class="card-title">{{ course.course_name }}</h4>
-                    <p class="card-text">{{ course.course_description }}</p>
+                    <h4 class="card-title">{{ enrollment.course.course_name }}</h4>
+                    <p class="card-text">{{ enrollment.course.course_description }}</p>
                     <p class="card-text">
-                        <strong>Instructor:</strong> {{ course.primary_instructor.user.get_full_name }}
+                        <strong>Instructor:</strong> {{ enrollment.course.primary_instructor.user.get_full_name }}
                     </p>
                 </div>
             </div>
@@ -42,8 +42,10 @@
                     <p class="card-text">
                         <strong>Instructor:</strong> {{ course.primary_instructor.user.get_full_name }}
                     </p>
-                    <!-- Optional Enroll button -->
-                    <!-- <a href="#" class="btn btn-outline-primary btn-sm mt-2">Enroll</a> -->
+                    <form method="post" action="{% url 'enroll_course' course.course_id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-primary btn-sm mt-2">Enroll</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -13,3 +13,13 @@ class CourseRegistrationRepo:
             return enrolled_courses, None
         except Exception as e:
             return None, str(e)
+
+    @staticmethod
+    def create_course_registration(
+        registration_data: dict,
+    ) -> tuple[CourseRegistration, Error]:
+        try:
+            course_registration = CourseRegistration.objects.create(**registration_data)
+            return course_registration, None
+        except Exception as e:
+            return None, str(e)

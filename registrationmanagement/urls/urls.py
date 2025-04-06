@@ -1,6 +1,10 @@
 from django.urls import path
 
-from registrationmanagement.views import auth_views, base_views
+from registrationmanagement.views import (
+    auth_views,
+    base_views,
+    course_registration_views,
+)
 
 urlpatterns = [
     path("", base_views.home, name="home"),
@@ -16,4 +20,9 @@ urlpatterns = [
         name="faculty_registration",
     ),
     path("login/faculty/", auth_views.faculty_login, name="faculty_login"),
+    path(
+        "enroll/<str:course_id>/course",
+        course_registration_views.enroll_course,
+        name="enroll_course",
+    ),
 ]

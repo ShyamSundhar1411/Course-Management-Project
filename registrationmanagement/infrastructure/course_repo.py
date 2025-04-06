@@ -18,3 +18,11 @@ class CourseRepo:
             return courses, None
         except Exception as e:
             return None, str(e)
+
+    @staticmethod
+    def get_course_by_id(course_id: int) -> tuple[Course, Error]:
+        try:
+            course = Course.objects.get(course_id=course_id)
+            return course, None
+        except Exception as e:
+            return None, str(e)
