@@ -11,7 +11,9 @@ class CourseRegistration(models.Model):
         "registrationmanagement.Student", on_delete=models.CASCADE
     )
     course = models.ForeignKey(
-        "registrationmanagement.Course", on_delete=models.CASCADE
+        "registrationmanagement.Course",
+        on_delete=models.CASCADE,
+        related_name="course_registration",
     )
     registration_date = models.DateTimeField(auto_now_add=True)
 

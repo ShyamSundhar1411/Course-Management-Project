@@ -4,6 +4,7 @@ from registrationmanagement.views import (
     auth_views,
     base_views,
     course_registration_views,
+    course_views,
 )
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
         course_registration_views.enroll_course,
         name="enroll_course",
     ),
+    path("course/create/", course_views.course_creation, name="create_course"),
 ]

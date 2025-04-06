@@ -34,3 +34,13 @@ class CourseRepo:
             return courses, None
         except Exception as e:
             return None, str(e)
+
+    @staticmethod
+    def create_course(course_data) -> tuple[Course, Error]:
+        try:
+            course = Course.objects.create(**course_data)
+            course.instructors.add(course.primary_instructor)
+            course.save()
+            return course, None
+        except Exception as e:
+            return None, str(e)

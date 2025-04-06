@@ -11,3 +11,11 @@ class FacultyRepo:
             return faculty, None
         except Exception as e:
             return None, str(e)
+
+    @staticmethod
+    def get_faculty_by_user(user) -> tuple[FacultyType, Error]:
+        try:
+            faculty = Faculty.objects.get(user=user)
+            return faculty, None
+        except Exception as e:
+            return None, str(e)
