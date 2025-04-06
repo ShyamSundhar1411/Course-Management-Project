@@ -38,6 +38,26 @@ def student_registration(request):
 
 
 def faculty_login(request):
+    if request.method == "POST":
+        faculty_login_form = FacultyLoginForm(request.POST)
+        if faculty_login_form.is_valid():
+            _, error = AuthService.login_faculty(
+                request, faculty_login_form.cleaned_data
+            )
+            if error:
+                messages.error(request, error)
+                return render(
+                    request,
+                    "registrationmanagement/faculty_login.html",
+                    {"form": faculty_login_form},
+                )
+            messages.success(request, "Login successful")
+            return redirect("home")
+        return render(
+            request,
+            "registrationmanagement/faculty_login.html",
+            {"form": faculty_login_form},
+        )
     return render(
         request,
         "registrationmanagement/faculty_login.html",

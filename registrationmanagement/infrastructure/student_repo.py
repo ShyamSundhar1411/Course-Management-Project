@@ -1,7 +1,6 @@
 from core.utils.types import Error
 from registrationmanagement.models import Student
-
-from .types import StudentType
+from registrationmanagement.utils.types import StudentType
 
 
 class StudentRepo:

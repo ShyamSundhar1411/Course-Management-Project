@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login
 
 from core.utils.types import Error
+from registrationmanagement.infrastructure.faculty_repo import FacultyRepo
 from registrationmanagement.infrastructure.student_repo import StudentRepo
-from registrationmanagement.infrastructure.types import StudentType, UserType
 from registrationmanagement.utils.auth_response_message import AuthResponseMessage
+from registrationmanagement.utils.types import FacultyType, StudentType, UserType
 
 
 class AuthService:
@@ -25,7 +26,18 @@ class AuthService:
         if error:
             return None, AuthResponseMessage.INVALID_CREDENTIALS.value
         user_data = {"user": student.user, "password": data["password"]}
-        user, error = AuthService.authenticate_user(reqeust, user_data)
+        _, error = AuthService.authenticate_user(reqeust, user_data)
         if error:
             return None, error
-        return user, None
+        return student, None
+
+    @staticmethod
+    def login_faculty(request: dict, data: dict) -> tuple[FacultyType, Error]:
+        faculty, error = FacultyRepo.get_faculty_by_employee_id(data["employee_id"])
+        if error:
+            return None, AuthResponseMessage.INVALID_CREDENTIALS.value
+        user_data = {"user": faculty.user, "password": data["password"]}
+        _, error = AuthService.authenticate_user(request, user_data)
+        if error:
+            return None, error
+        return faculty, None
