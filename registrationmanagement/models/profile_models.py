@@ -24,7 +24,6 @@ class Faculty(models.Model):
         primary_key=True, editable=False, unique=True, default=uuid.uuid4
     )
     employee_id = models.CharField(max_length=20, unique=True)
-    department = models.CharField(max_length=50)
     school = models.CharField(max_length=100)
     user = models.OneToOneField("registrationmanagement.User", on_delete=models.CASCADE)
 

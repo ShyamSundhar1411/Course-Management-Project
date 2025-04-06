@@ -19,3 +19,11 @@ class FacultyRepo:
             return faculty, None
         except Exception as e:
             return None, str(e)
+
+    @staticmethod
+    def create_faculty(faculty_data) -> tuple[FacultyType, Error]:
+        try:
+            faculty = Faculty.objects.create(**faculty_data)
+            return faculty, None
+        except Exception as e:
+            return None, str(e)

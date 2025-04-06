@@ -3,10 +3,12 @@ from django.shortcuts import redirect, render
 
 from registrationmanagement.forms.auth_forms import (
     FacultyLoginForm,
+    FacultySignUpForm,
     StudentLoginForm,
     StudentSignUpForm,
 )
 from registrationmanagement.services.auth_service import AuthService
+from registrationmanagement.utils.auth_response_message import AuthResponseMessage
 
 
 def student_login(request):
@@ -45,14 +47,16 @@ def student_registration(request):
                 request, student_signup_form.cleaned_data
             )
             if error:
-                messages.error(request, error)
+                messages.error(
+                    request, AuthResponseMessage.REGISTRATION_UNSUCCESSFUL.value
+                )
                 return render(
                     request,
                     "registrationmanagement/student_registration.html",
                     {"form": student_signup_form},
                 )
 
-            messages.success(request, "Registration successful")
+            messages.success(request, AuthResponseMessage.REGISTRATION_SUCCESSFUL.value)
             return redirect("home")
         return render(
             request,
@@ -95,4 +99,31 @@ def faculty_login(request):
 
 
 def faculty_registration(request):
-    return render(request, "registrationmanagement/faculty_registration.html")
+    if request.method == "POST":
+        faculty_signup_form = FacultySignUpForm(request.POST)
+        if faculty_signup_form.is_valid():
+            _, error = AuthService.register_faculty(
+                request, faculty_signup_form.cleaned_data
+            )
+            if error:
+                messages.error(
+                    request, AuthResponseMessage.REGISTRATION_UNSUCCESSFUL.value
+                )
+                return render(
+                    request,
+                    "registrationmanagement/faculty_registration.html",
+                    {"form": faculty_signup_form},
+                )
+
+            messages.success(request, AuthResponseMessage.REGISTRATION_SUCCESSFUL.value)
+            return redirect("home")
+        return render(
+            request,
+            "registrationmanagement/faculty_registration.html",
+            {"form": faculty_signup_form},
+        )
+    return render(
+        request,
+        "registrationmanagement/faculty_registration.html",
+        {"form": FacultySignUpForm()},
+    )

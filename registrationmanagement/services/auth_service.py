@@ -70,7 +70,38 @@ class AuthService:
                 student, error = StudentRepo.create_student(student_data)
                 if error:
                     raise transaction.TransactionManagementError(error)
-            login(request, user)
-            return student, None
+                login(request, user)
+                return student, None
+        except Exception as e:
+            return None, str(e)
+
+    @staticmethod
+    def register_faculty(request: dict, data: dict) -> tuple[FacultyType, Error]:
+        try:
+            with transaction.atomic():
+                user_data = {
+                    "username": data["username"],
+                    "password": data["password"],
+                    "first_name": data["first_name"],
+                    "last_name": data["last_name"],
+                    "gender": data["gender"],
+                    "email": data["email"],
+                    "role": "Faculty",
+                    "phone_number": data["phone_number"],
+                }
+                user, error = UserRepo.create_user(user_data)
+                if error:
+                    raise transaction.TransactionManagementError(error)
+                faculty_data = {
+                    "user": user,
+                    "employee_id": data["employee_id"],
+                    "school": data["school"],
+                }
+                faculty, error = FacultyRepo.create_faculty(faculty_data)
+                if error:
+                    raise transaction.TransactionManagementError(error)
+
+                login(request, user)
+                return faculty, None
         except Exception as e:
             return None, str(e)

@@ -1,6 +1,85 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
 {% block content %}
-<div class = "container">
-    Faculty Registration
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow rounded">
+                <div class="card-body">
+
+                    <!-- Centered Heading with Icon -->
+                    <div class="d-flex justify-content-center align-items-center mb-4">
+                        <i class="fas fa-user-plus me-2 text-success fa-lg"></i>
+                        <h3 class="card-title m-0">Faculty Registration</h3>
+                    </div>
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Please fix the errors below.</strong>
+                        </div>
+                    {% endif %}
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                {{ form.username|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.employee_id|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                {{ form.first_name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.last_name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.phone_number|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                {{ form.school|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.gender|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.password|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.confirm_password|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-success">Register</button>
+                        </div>
+
+                        <p class="text-center mt-3 mb-0">
+                            Already have a faculty account?
+                            <a href="{% url 'faculty_login' %}" class="text-decoration-none">
+                                Login here
+                            </a>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
