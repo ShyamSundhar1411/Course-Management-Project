@@ -17,3 +17,10 @@ class CourseService:
         if error:
             return None, error
         return courses, error
+
+    @staticmethod
+    def fetch_courses_by_faculty(user) -> tuple[CourseQuerySetType, Error]:
+        courses, error = CourseRepo.get_courses_by_faculty(user)
+        if error:
+            return None, error
+        return courses, error

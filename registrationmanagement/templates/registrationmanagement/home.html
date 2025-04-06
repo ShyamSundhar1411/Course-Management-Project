@@ -6,7 +6,8 @@
     <br />
     {% if user.role == "Student" %}
         {% include "registrationmanagement/student_dashboard.html" %}
-
+    {% elif user.role == "Faculty" %}
+        {% include "registrationmanagement/faculty_dashboard.html" %}
     {% endif %}
 </div>
 {% endblock %}

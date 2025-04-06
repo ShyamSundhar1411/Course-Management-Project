@@ -26,3 +26,11 @@ class CourseRepo:
             return course, None
         except Exception as e:
             return None, str(e)
+
+    @staticmethod
+    def get_courses_by_faculty(user) -> tuple[CourseQuerySetType, Error]:
+        try:
+            courses = Course.objects.filter(primary_instructor__user=user)
+            return courses, None
+        except Exception as e:
+            return None, str(e)

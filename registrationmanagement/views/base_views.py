@@ -25,4 +25,11 @@ def home(request):
             "registrationmanagement/home.html",
             {"enrolled_courses": enrolled_courses, "courses": courses},
         )
+    if request.user.role == "Faculty":
+        courses, error = CourseService.fetch_courses_by_faculty(request.user)
+        if error:
+            messages.error(request, error)
+            return render(request, "registrationmanagement/home.html")
+        return render(request, "registrationmanagement/home.html", {"courses": courses})
+
     return render(request, "registrationmanagement/home.html")

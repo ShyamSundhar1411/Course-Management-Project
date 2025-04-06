@@ -1,3 +1,29 @@
-<div class = "container">
-    <h1>Hey</h1>
+<div class="container mt-4">
+    <h2 class="mb-4">Courses You're Teaching</h2>
+    <div class="row">
+        {% for course in courses %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">{{ course.course_code }}</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ course.course_name }}</h4>
+                    <p class="card-text">{{ course.course_description }}</p>
+                    <p class="card-text">
+                        <strong>Students Enrolled:</strong> {{ course.enrollments.count }}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-warning mb-3" style="max-width: 20rem;">
+                <div class="card-header">No Courses Assigned</div>
+                <div class="card-body">
+                    <p class="card-text">You're not teaching any courses currently.</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
