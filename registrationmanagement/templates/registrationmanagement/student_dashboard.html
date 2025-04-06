@@ -1,0 +1,61 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Enrolled Courses</h2>
+    <div class="row">
+        {% for course in enrolled_courses %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-success mb-3" style="max-width: 20rem;">
+                <div class="card-header">{{ course.course_code }}</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ course.course_name }}</h4>
+                    <p class="card-text">{{ course.course_description }}</p>
+                    <p class="card-text">
+                        <strong>Instructor:</strong> {{ course.primary_instructor.user.get_full_name }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-warning mb-3" style="max-width: 20rem;">
+                <div class="card-header">No Enrolled Courses</div>
+                <div class="card-body">
+                    <p class="card-text">You are not enrolled in any courses yet.</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="container mt-4">
+    <h2 class="mb-4">All Available Courses</h2>
+    <div class="row">
+        {% for course in courses %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">{{ course.course_code }}</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ course.course_name }}</h4>
+                    <p class="card-text">{{ course.course_description }}</p>
+                    <p class="card-text">
+                        <strong>Instructor:</strong> {{ course.primary_instructor.user.get_full_name }}
+                    </p>
+                    <!-- Optional Enroll button -->
+                    <!-- <a href="#" class="btn btn-outline-primary btn-sm mt-2">Enroll</a> -->
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-warning mb-3" style="max-width: 20rem;">
+                <div class="card-header">No Available Courses</div>
+                <div class="card-body">
+                    <p class="card-text">You're enrolled in all available courses, or none are offered right now.</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
+
 {% block content %}
-<div class = "container">
-    <h1>Hey Hello</h1>
+<div class="container">
+    <h1>Hey {{ user.username }}</h1>
+    <br />
+    {% if user.role == "Student" %}
+        {% include "registrationmanagement/student_dashboard.html" %}
+
+    {% endif %}
 </div>
 {% endblock %}

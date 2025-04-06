@@ -142,8 +142,8 @@ MESSAGE_TAGS = {
 }
 
 LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
-LOGIN_URL = "home"
+LOGOUT_REDIRECT_URL = "student_login"
+LOGIN_URL = "student_login"
 LOGOUT_URL = "logout"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 

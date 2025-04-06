@@ -56,7 +56,7 @@ disable = """
     no-name-in-module,
     too-many-return-statements,
     no-value-for-parameter,
-    attribute-defined-outside-init
+    attribute-defined-outside-init,
 """
 enable = "useless-suppression"
 

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from registrationmanagement.forms.auth_forms import FacultyLoginForm, StudentLoginForm
-from registrationmanagement.services.auth_services import AuthService
+from registrationmanagement.services.auth_service import AuthService
 
 
 def student_login(request):

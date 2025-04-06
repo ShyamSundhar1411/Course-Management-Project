@@ -16,6 +16,7 @@ class CustomUserAdmin(UserAdmin):
         "is_contact_verified",
         "is_email_verified",
         "is_staff",
+        "role",
     )
 
     fieldsets = list(UserAdmin.fieldsets) + [
@@ -27,6 +28,7 @@ class CustomUserAdmin(UserAdmin):
                     "is_contact_verified",
                     "is_email_verified",
                     "gender",
+                    "role",
                 ),
             },
         ),
