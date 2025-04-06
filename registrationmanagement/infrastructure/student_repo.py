@@ -21,3 +21,11 @@ class StudentRepo:
             return student, None
         except Exception as e:
             return None, str(e)
+
+    @staticmethod
+    def create_student(student_data) -> tuple[Student, Error]:
+        try:
+            student = Student.objects.create(**student_data)
+            return student, None
+        except Exception as e:
+            return None, str(e)

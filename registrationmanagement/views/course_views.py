@@ -26,6 +26,11 @@ def course_creation(request):
                 request, CourseResponseMessage.COURSE_CREATED_SUCCESSFULLY.value
             )
             return redirect("home")
+        return render(
+            request,
+            "registrationmanagement/course_creation.html",
+            {"course_form": course_form},
+        )
     return render(
         request,
         "registrationmanagement/course_creation.html",

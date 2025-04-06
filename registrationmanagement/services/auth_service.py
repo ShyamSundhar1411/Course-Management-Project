@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login
+from django.db import transaction
 
 from core.utils.types import Error
 from registrationmanagement.infrastructure.faculty_repo import FacultyRepo
 from registrationmanagement.infrastructure.student_repo import StudentRepo
+from registrationmanagement.infrastructure.user_repo import UserRepo
 from registrationmanagement.utils.auth_response_message import AuthResponseMessage
 from registrationmanagement.utils.types import FacultyType, StudentType, UserType
 
@@ -41,3 +43,34 @@ class AuthService:
         if error:
             return None, error
         return faculty, None
+
+    @staticmethod
+    def register_student(request: dict, data: dict) -> tuple[StudentType, Error]:
+        try:
+            with transaction.atomic():
+                user_data = {
+                    "username": data["username"],
+                    "password": data["password"],
+                    "first_name": data["first_name"],
+                    "last_name": data["last_name"],
+                    "gender": data["gender"],
+                    "email": data["email"],
+                    "role": "Student",
+                    "phone_number": data["phone_number"],
+                }
+                user, error = UserRepo.create_user(user_data)
+                if error:
+                    raise transaction.TransactionManagementError(error)
+                student_data = {
+                    "user": user,
+                    "registration_number": data["registration_number"],
+                    "school": data["school"],
+                    "branch": data["branch"],
+                }
+                student, error = StudentRepo.create_student(student_data)
+                if error:
+                    raise transaction.TransactionManagementError(error)
+            login(request, user)
+            return student, None
+        except Exception as e:
+            return None, str(e)

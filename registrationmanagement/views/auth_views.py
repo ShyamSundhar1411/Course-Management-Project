@@ -1,7 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from registrationmanagement.forms.auth_forms import FacultyLoginForm, StudentLoginForm
+from registrationmanagement.forms.auth_forms import (
+    FacultyLoginForm,
+    StudentLoginForm,
+    StudentSignUpForm,
+)
 from registrationmanagement.services.auth_service import AuthService
 
 
@@ -34,7 +38,32 @@ def student_login(request):
 
 
 def student_registration(request):
-    return render(request, "registrationmanagement/student_registration.html")
+    if request.method == "POST":
+        student_signup_form = StudentSignUpForm(request.POST)
+        if student_signup_form.is_valid():
+            _, error = AuthService.register_student(
+                request, student_signup_form.cleaned_data
+            )
+            if error:
+                messages.error(request, error)
+                return render(
+                    request,
+                    "registrationmanagement/student_registration.html",
+                    {"form": student_signup_form},
+                )
+
+            messages.success(request, "Registration successful")
+            return redirect("home")
+        return render(
+            request,
+            "registrationmanagement/student_registration.html",
+            {"form": student_signup_form},
+        )
+    return render(
+        request,
+        "registrationmanagement/student_registration.html",
+        {"form": StudentSignUpForm()},
+    )
 
 
 def faculty_login(request):
