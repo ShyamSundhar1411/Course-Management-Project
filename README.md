@@ -4,7 +4,7 @@ A Django-based web application designed using the **MVCS (Model-View-Controller-
 
 ---
 
-## 🧠 Architecture Overview
+## Architecture Overview
 
 This project follows a **clean architecture** based on the **MVCS pattern**, promoting **separation of concerns** and testability.
 
@@ -21,9 +21,9 @@ This project follows a **clean architecture** based on the **MVCS pattern**, pro
 
 ---
 
-## 🚀 Features
+## Features
 
-### 👥 User Roles
+### User Roles
 - **Student**
   - Register and log in.
   - Browse and enroll in courses.
@@ -35,3 +35,71 @@ This project follows a **clean architecture** based on the **MVCS pattern**, pro
   - Monitor student enrollments.
 
 ---
+
+## How to Run Locally
+
+### Prerequisites
+
+- Python 3.11+ installed
+- Poetry installed (https://python-poetry.org/docs/)
+- PostgreSQL installed and running
+
+### Steps
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/ShyamSundhar1411/Course-Management-Project.git
+cd Course-Management-Project
+```
+
+2. **Setup environment variables**
+
+Create a `.env` file in the root directory with the following content (adjust as needed):
+
+```
+DATABASE_NAME=db_name
+DATABASE_USER=your_username
+DATABASE_PASSWORD=your_password
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+```
+
+3. **Install dependencies with Poetry**
+
+```bash
+poetry install
+```
+
+4. **Activate Poetry shell**
+
+```bash
+poetry shell
+```
+
+5. **Run migrations**
+
+```bash
+python manage.py migrate
+```
+
+6. **Create a superuser (optional)**
+
+```bash
+python manage.py createsuperuser
+```
+
+7. **Run the development server**
+
+```bash
+python manage.py runserver
+```
+
+8. **Access the application**
+
+Open your browser and navigate to http://localhost:8000
+
+---
+
+
+For full source code, visit the [GitHub repository](https://github.com/ShyamSundhar1411/Course-Management-Project).
